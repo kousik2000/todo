@@ -9,6 +9,32 @@ import TodoItem from "../TodoItem";
 class TodoList extends Component {
   state = { todoList: [], addTask: "" };
 
+  getMyTodoDataL = () => {
+    let stringifiedTodoList = localStorage.getItem("myTodoData");
+    let parsedTodoList = JSON.parse(stringifiedTodoList);
+    if (parsedTodoList === null) {
+      this.setState({ todoList: [] });
+    } else {
+      this.setState({ todoList: parsedTodoList });
+    }
+  };
+
+  componentDidMount() {
+    this.getMyTodoDataL();
+  }
+
+  onSaveButtonClicked = () => {
+    const { todoList } = this.state;
+    localStorage.setItem("myTodoData", JSON.stringify(todoList));
+  };
+
+  onClickDeleteButton = (id) => {
+    const { todoList } = this.state;
+    const filteredData = todoList.filter((eachData) => eachData.id !== id);
+
+    this.setState({ todoList: filteredData });
+  };
+
   updateTask = (event) => {
     this.setState({ addTask: event.target.value });
   };
@@ -30,12 +56,13 @@ class TodoList extends Component {
     console.log(newTodo);
     this.setState((prevState) => ({
       todoList: [...prevState.todoList, newTodo],
-      task: "",
+      addTask: "",
     }));
   };
 
   render() {
-    const { todoList } = this.state;
+    const { todoList, addTask } = this.state;
+
     return (
       <div className="todos-bg-container">
         <div className="container">
@@ -50,6 +77,7 @@ class TodoList extends Component {
                 <input
                   type="text"
                   className="todo-user-input"
+                  value={addTask}
                   placeholder="What needs to be done?"
                   onChange={this.updateTask}
                 />
@@ -62,10 +90,18 @@ class TodoList extends Component {
               </h1>
               <ul className="todo-items-container" id="todoItemsContainer">
                 {todoList.map((eachTodo) => (
-                  <TodoItem todoDetails={eachTodo} key={eachTodo.id} />
+                  <TodoItem
+                    todoDetails={eachTodo}
+                    key={eachTodo.id}
+                    onClickDeleteButton={this.onClickDeleteButton}
+                  />
                 ))}
               </ul>
-              <button className="button" id="saveTodoButton">
+              <button
+                className="button"
+                id="saveTodoButton"
+                onClick={this.onSaveButtonClicked}
+              >
                 Save
               </button>
             </div>

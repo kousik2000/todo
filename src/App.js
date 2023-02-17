@@ -9,17 +9,15 @@ import StopWatch from "./components/StopWatch";
 
 const App = () => {
   return (
-    <div className="app-container">
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={TodoList} />
-          <Route exact path="/notes" component={Notes} />
-          <Route exact path="/remainder" component={Remainder} />
-          <Route exact path="/stopwatch" component={StopWatch} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={TodoList} />
+        <Route exact path="/notes" component={Notes} />
+        <Route exact path="/remainder" component={Remainder} />
+        <Route exact path="/stopwatch" component={StopWatch} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
