@@ -27,7 +27,7 @@ const RemainderItems = (props) => {
         </div>
         <div className="remainder-button-container">
           <button onClick={onSetReminderButtonClick} className="button-icons">
-            <i class="fa-solid fa-bell fa-lg"></i>
+            <i className="fa-solid fa-bell fa-lg"></i>
           </button>
           <button className="button-icons" onClick={onDeleteButton}>
             <i className="fa-solid fa-trash-can fa-lg"></i>
