@@ -41,3 +41,9 @@
   padding: 0px;
   box-sizing: border-box;
 }
+.bg-container {
+  background-image: url("https://t3.ftcdn.net/jpg/01/67/59/48/360_F_167594893_dWtiBCm2kkQGeeIGcJSGKryKItZ8XAI1.jpg");
+  height: 90vh;
+  width: 100%;
+  background-size: cover;
+}
