@@ -9,10 +9,28 @@ import NoteList from "../NoteList";
 class Notes extends Component {
   state = { notesData: [], title: "", notes: "" };
 
+  componentDidMount() {
+    this.getMyReminderData();
+  }
+
+  getMyReminderData = () => {
+    let stringifiedNotesList = localStorage.getItem("myNotesData");
+    let parsedNotesList = JSON.parse(stringifiedNotesList);
+    if (parsedNotesList === null) {
+      this.setState({ notesData: [] });
+    } else {
+      this.setState({ notesData: parsedNotesList });
+    }
+  };
+
+  saveNotes = () => {
+    const { notesData } = this.state;
+    localStorage.setItem("myNotesData", JSON.stringify(notesData));
+  };
+
   addNewNotes = (event) => {
     event.preventDefault();
     const { title, notes } = this.state;
-
     const newNotes = {
       id: uuidv4(),
       title,
